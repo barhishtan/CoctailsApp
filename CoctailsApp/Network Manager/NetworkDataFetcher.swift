@@ -16,7 +16,6 @@ class NetworkDataFetcher {
         let request = URLRequest(url: networkRouter.buildURL(type: searchType, query: query))
         let data = URLSession.shared.rx
             .data(request: request)
-            //.subscribeOn(ConcurrentDispatchQueueScheduler(qos: .background))
         return data
     }
 }

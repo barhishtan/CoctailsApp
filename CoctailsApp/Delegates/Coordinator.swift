@@ -29,8 +29,8 @@ class Coordinator {
         categoriesVC.tabBarItem.title = "Categories"
         categoriesVC.tabBarItem.image = UIImage(systemName: "list.bullet.indent")
         let categoriesNC = UINavigationController(rootViewController: categoriesVC)
-        
-        
+
+
         // Main
         let tabBarController = UITabBarController()
         tabBarController.viewControllers = [navigationController, categoriesNC]

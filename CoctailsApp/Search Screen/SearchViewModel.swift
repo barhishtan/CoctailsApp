@@ -64,23 +64,6 @@ class SearchViewModel {
                 )
             })
             .disposed(by: bag)
-//            .observeOn(MainScheduler.instance)
-//            .subscribe(onNext: { [weak self] coctailList in
-//                self?.showActivityIndicator.accept(false)
-//                self?.searchResult = coctailList
-//                self?.tableViewItems.accept(
-//                    coctailList.cocktails.map { cocktail in
-//                        return SearchCellViewModel(cocktail)
-//                    }
-//                )
-//                }, onError:  { [weak self] error in
-//                    self?.showActivityIndicator.accept(false)
-//                    self?.searchResult = CocktailList()
-//                    self?.tableViewItems.accept([])
-//                    print(error.localizedDescription)
-//                }
-//            )
-//            .disposed(by: bag)
         
         selectedIndex
             .subscribe(onNext: { [weak self] index in

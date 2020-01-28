@@ -11,7 +11,7 @@ import RxSwift
 import RxCocoa
 import SnapKit
 
-class SearchViewController: UITableViewController {
+class SearchViewController: UIViewController {
     
     // MARK: - UI Properties
     private let searchController: UISearchController = {
@@ -25,6 +25,15 @@ class SearchViewController: UITableViewController {
     
     private let activityIndicator = UIActivityIndicatorView()
     
+    private let tableView: UITableView = {
+        let tableView = UITableView()
+        tableView.register(SearchCellView.self, forCellReuseIdentifier: "cell")
+        tableView.backgroundColor = .white
+        tableView.rowHeight = 80
+        return tableView
+    }()
+    
+    
     // MARK: - Private Properties
     private let bag = DisposeBag()
     
@@ -35,23 +44,13 @@ class SearchViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableView.delegate = nil
-        tableView.dataSource = nil
-        tableView.register(SearchCellView.self, forCellReuseIdentifier: "cell")
-        tableView.rowHeight = 80
-        
-        setupUI()
+        setupNavigationBar()
+        setupTableView()
         setupBindings()
     }
     
-    override func viewWillLayoutSubviews() {
-        <#code#>
-    }
-    
     // MARK: - Private Methods
-    private func setupUI() {
-        tableView.backgroundColor = .white
-        
+    private func setupNavigationBar() {
         navigationItem.title = "Search Cocktails🍸"
         navigationItem.searchController = searchController
         navigationController?.navigationBar.prefersLargeTitles = true
@@ -60,6 +59,13 @@ class SearchViewController: UITableViewController {
         
         let barButton = UIBarButtonItem(customView: activityIndicator)
         navigationItem.setRightBarButton(barButton, animated: true)
+    }
+    
+    private func setupTableView() {
+        view.addSubview(tableView)
+        tableView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
     }
     
     private func setupBindings() {
@@ -87,15 +93,10 @@ class SearchViewController: UITableViewController {
             .disposed(by: bag)
         
         viewModel.tableViewItems
-            .bind(to: tableView.rx.items) { (tableView, row, item) in
-                let indexPath = IndexPath(row: row, section: 0)
-                guard let cell = tableView.dequeueReusableCell(
-                    withIdentifier: "cell",
-                    for: indexPath ) as? SearchCellView
-                    else { return UITableViewCell() }
-             
-                cell.viewModel = item
-                return cell
+            .bind(to: tableView.rx.items(cellIdentifier: "cell",
+                                         cellType: SearchCellView.self))
+            { (row: Int, element: SearchCellViewModel, cell: SearchCellView) in
+                cell.viewModel.accept(element)
             }
             .disposed(by: bag)
     }

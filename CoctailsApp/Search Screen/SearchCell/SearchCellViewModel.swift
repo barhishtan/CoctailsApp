@@ -6,15 +6,16 @@
 //  Copyright © 2020 Artur Sokolov. All rights reserved.
 //
 import Foundation
-import RxSwift
-import RxCocoa
 
 class SearchCellViewModel {
-    let coctailName = BehaviorRelay<String?>(value: "...")
-    let coctailImageURL = BehaviorRelay<String?>(value: "...")
+    var cocktailName: String? { return cocktail.name }
+    var cocktailImageData: Data? {
+        return NetworkImage().getImageData(from: "\(cocktail.imageURL ?? "")/preview")
+    }
     
-    init(_ coctail: Cocktail) {
-        coctailName.accept(coctail.name)
-        coctailImageURL.accept(coctail.imageURL)
+    private let cocktail: Cocktail
+    
+    init(_ cocktail: Cocktail) {
+        self.cocktail = cocktail
     }
 }

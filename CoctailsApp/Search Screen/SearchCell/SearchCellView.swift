@@ -16,6 +16,7 @@ class SearchCellView: UITableViewCell {
     private let cocktailNameLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 20, weight: .semibold)
+        label.numberOfLines = 0
         return label
     }()
     
@@ -27,10 +28,10 @@ class SearchCellView: UITableViewCell {
     }()
     
     // MARK: - Public Properties
-    var viewModel: SearchCellViewModel?
+    let viewModel = PublishRelay<SearchCellViewModel>()
     
     // MARK: - Private Properties
-    let bag = DisposeBag()
+    private let bag = DisposeBag()
     
     // MARK: - Initializers
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -52,10 +53,6 @@ class SearchCellView: UITableViewCell {
     }
     
     private func setupConstraints() {
-//        contentView.snp.makeConstraints { make in
-//            make.height.equalTo(80)
-//        }
-        
         cocktailImageView.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(20)
             make.top.bottom.equalToSuperview()
@@ -70,29 +67,11 @@ class SearchCellView: UITableViewCell {
     }
     
     private func setupBindings() {
-        guard let viewModel = viewModel else { return }
-//        viewModel.coctailName
-//            .asDriver()
-//            .drive(onNext: { [weak self] name in
-//                self?.cocktailNameLabel.text = name
-//            })
-//            .disposed(by: bag)
-        viewModel
-            .coctailName
-            .bind(to: cocktailNameLabel.rx.text)
-            .disposed(by: bag)
-        
-//        viewModel
-//            .coctailImageURL
-//            .subscribeOn(ConcurrentDispatchQueueScheduler(qos: .background))
-//            .map { stringURL  -> UIImage in
-//                guard let url = URL(string: stringURL ?? "") else { return UIImage() }
-//                guard let data = try? Data(contentsOf: url) else { return UIImage() }
-//                guard let image = UIImage(data: data) else { return UIImage() }
-//                return image
-//            }
-//            .observeOn(MainScheduler.instance)
-//            .bind(to: cocktailImageView.rx.image)
-//        .disposed(by: bag)
+        viewModel.subscribe(onNext: { [weak self] viewModel in
+            self?.cocktailNameLabel.text = viewModel.cocktailName
+            self?.cocktailImageView.image = UIImage(data: viewModel.cocktailImageData ?? Data())
+        })
+        .disposed(by: bag)
     }
+    
 }
