@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		9A18E4EA23E0B1E900D5B31C /* CategoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A18E4E923E0B1E900D5B31C /* CategoriesViewController.swift */; };
-		9A2120C023E0CDBD00AC39B7 /* NetworkImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2120BF23E0CDBD00AC39B7 /* NetworkImage.swift */; };
+		9A2120C223E0DDE800AC39B7 /* UIImageView + fetchImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2120C123E0DDE800AC39B7 /* UIImageView + fetchImage.swift */; };
 		9A29F54523E0A6D000D52FCE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A29F54423E0A6D000D52FCE /* AppDelegate.swift */; };
 		9A29F54723E0A6D000D52FCE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A29F54623E0A6D000D52FCE /* SceneDelegate.swift */; };
 		9A29F54923E0A6D000D52FCE /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A29F54823E0A6D000D52FCE /* SearchViewController.swift */; };
@@ -30,7 +30,7 @@
 
 /* Begin PBXFileReference section */
 		9A18E4E923E0B1E900D5B31C /* CategoriesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesViewController.swift; sourceTree = "<group>"; };
-		9A2120BF23E0CDBD00AC39B7 /* NetworkImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkImage.swift; sourceTree = "<group>"; };
+		9A2120C123E0DDE800AC39B7 /* UIImageView + fetchImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView + fetchImage.swift"; sourceTree = "<group>"; };
 		9A29F54123E0A6D000D52FCE /* CoctailsApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoctailsApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A29F54423E0A6D000D52FCE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9A29F54623E0A6D000D52FCE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -118,7 +118,7 @@
 				9A29F55B23E0A8AF00D52FCE /* NetworkRouter.swift */,
 				9A29F55D23E0A8C200D52FCE /* NetworkDataFetcher.swift */,
 				9A29F55F23E0A8D500D52FCE /* RxJSONDecoder.swift */,
-				9A2120BF23E0CDBD00AC39B7 /* NetworkImage.swift */,
+				9A2120C123E0DDE800AC39B7 /* UIImageView + fetchImage.swift */,
 			);
 			path = "Network Manager";
 			sourceTree = "<group>";
@@ -234,10 +234,10 @@
 				9A29F55E23E0A8C200D52FCE /* NetworkDataFetcher.swift in Sources */,
 				9A29F56323E0A91000D52FCE /* CocktailModel.swift in Sources */,
 				9A29F55923E0A84900D52FCE /* Coordinator.swift in Sources */,
+				9A2120C223E0DDE800AC39B7 /* UIImageView + fetchImage.swift in Sources */,
 				9A29F54923E0A6D000D52FCE /* SearchViewController.swift in Sources */,
 				9A29F55C23E0A8AF00D52FCE /* NetworkRouter.swift in Sources */,
 				9A29F54523E0A6D000D52FCE /* AppDelegate.swift in Sources */,
-				9A2120C023E0CDBD00AC39B7 /* NetworkImage.swift in Sources */,
 				9A29F56823E0A96F00D52FCE /* SearchRouter.swift in Sources */,
 				9A29F56623E0A95D00D52FCE /* SearchViewModel.swift in Sources */,
 				9A29F56B23E0A99500D52FCE /* SearchCellView.swift in Sources */,

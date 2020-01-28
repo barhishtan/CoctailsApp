@@ -54,8 +54,9 @@ class SearchCellView: UITableViewCell {
     
     private func setupConstraints() {
         cocktailImageView.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(20)
-            make.top.bottom.equalToSuperview()
+            make.leading.equalToSuperview().offset(15)
+            make.top.equalToSuperview().offset(1)
+            make.bottom.equalToSuperview().inset(1)
             make.width.equalTo(contentView.snp.height)
         }
         
@@ -69,9 +70,10 @@ class SearchCellView: UITableViewCell {
     private func setupBindings() {
         viewModel.subscribe(onNext: { [weak self] viewModel in
             self?.cocktailNameLabel.text = viewModel.cocktailName
-            self?.cocktailImageView.image = UIImage(data: viewModel.cocktailImageData ?? Data())
+            self?.cocktailImageView.fetchImage(fromURL: viewModel.cocktailImageURL)
         })
         .disposed(by: bag)
+        
     }
     
 }

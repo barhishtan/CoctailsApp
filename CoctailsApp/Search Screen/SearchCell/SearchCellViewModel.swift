@@ -9,9 +9,7 @@ import Foundation
 
 class SearchCellViewModel {
     var cocktailName: String? { return cocktail.name }
-    var cocktailImageData: Data? {
-        return NetworkImage().getImageData(from: "\(cocktail.imageURL ?? "")/preview")
-    }
+    var cocktailImageURL: String? { return cocktail.imageURL }
     
     private let cocktail: Cocktail
     
