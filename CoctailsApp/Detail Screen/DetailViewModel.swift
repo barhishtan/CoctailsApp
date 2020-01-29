@@ -14,39 +14,36 @@ class DetailViewModel {
     // MARK: - Public Properties
     let router: DetailRouter
     
-    let title = PublishRelay<String?>()
-    let imageStringURL = PublishRelay<String?>()
-    let recipeText = PublishRelay<String?>()
-    let isFavourite = PublishRelay<Bool>()
-    
-    // MARK: - Private Properties
-    private let cocktail: Cocktail
+    let title: BehaviorRelay<String?>
+    let imageStringURL: BehaviorRelay<String?>
+    let recipeText: BehaviorRelay<String?>
+    let isFavourite = PublishSubject<Bool>()
     
     // MARK: - Initializers
     init(router: DetailRouter, cocktail: Cocktail) {
         self.router = router
-        self.cocktail = cocktail
+        let text = DetailViewModel.createRecipeText(cocktail: cocktail)
         
-        title.accept(cocktail.name)
-        imageStringURL.accept(cocktail.imageURL)
-        recipeText.accept(createRecipeText())
+        title = BehaviorRelay<String?>(value: cocktail.name)
+        imageStringURL = BehaviorRelay<String?>(value: cocktail.imageURL)
+        recipeText = BehaviorRelay<String?>(value: text)
     }
     
     // MARK: - Private Methods
-    private func createRecipeText() -> String? {
-        var text = "Instructions: \n"
-        text.append(cocktail.instructions ?? "")
-        text.append("\n Ingredients: \n")
-        text.append("\(cocktail.ingredientOne ?? "") - \(cocktail.measureOne ?? "") \t")
-        text.append("\(cocktail.ingredientTwo ?? "") - \(cocktail.measureTwo ?? "") \t")
-        text.append("\(cocktail.ingredientThree ?? "") - \(cocktail.measureThree ?? "") \t")
-        text.append("\(cocktail.ingredientFour ?? "") - \(cocktail.measureFour ?? "") \t")
-        text.append("\(cocktail.ingredientFive ?? "") - \(cocktail.measureFive ?? "") \t")
-        text.append("\(cocktail.ingredientSix ?? "") - \(cocktail.measureSix ?? "") \t")
-        text.append("\(cocktail.ingredientSeven ?? "") - \(cocktail.measureSeven ?? "") \t")
-        text.append("\(cocktail.ingredientEight ?? "") - \(cocktail.ingredientEight ?? "") \t")
-        text.append("\(cocktail.ingredientNine ?? "") - \(cocktail.measureNine ?? "") \t")
-        text.append("\(cocktail.ingredientTen ?? "") - \(cocktail.measureTen ?? "") \t")
+    private static func createRecipeText(cocktail: Cocktail) -> String? {
+        var text = "Instructions: \n\n"
+        text.append("\(cocktail.instructions ?? "") \n\n")
+        text.append("Ingredients: \n\n")
+        text.append("\(cocktail.ingredientOne ?? "")   \(cocktail.measureOne ?? "") \n")
+        text.append("\(cocktail.ingredientTwo ?? "")   \(cocktail.measureTwo ?? "") \n")
+        text.append("\(cocktail.ingredientThree ?? "")   \(cocktail.measureThree ?? "") \n")
+        text.append("\(cocktail.ingredientFour ?? "")   \(cocktail.measureFour ?? "") \n")
+        text.append("\(cocktail.ingredientFive ?? "")   \(cocktail.measureFive ?? "") \n")
+        text.append("\(cocktail.ingredientSix ?? "")   \(cocktail.measureSix ?? "") \n")
+        text.append("\(cocktail.ingredientSeven ?? "")   \(cocktail.measureSeven ?? "") \n")
+        text.append("\(cocktail.ingredientEight ?? "")   \(cocktail.ingredientEight ?? "") \n")
+        text.append("\(cocktail.ingredientNine ?? "")   \(cocktail.measureNine ?? "") \n")
+        text.append("\(cocktail.ingredientTen ?? "")   \(cocktail.measureTen ?? "") \n")
         return text
     }
 }

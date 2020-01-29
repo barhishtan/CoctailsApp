@@ -10,11 +10,11 @@ import UIKit
 
 class SearchRouter {
     
+    weak var baseViewController: UIViewController?
+    
     enum RouteType {
         case details(Cocktail)
     }
-    
-    weak var baseViewController: UIViewController?
     
     func enqueueRoute(with context: Any?) {
         guard let routeType = context as? RouteType else { return }
@@ -22,7 +22,9 @@ class SearchRouter {
         
         switch routeType {
         case .details(let cocktail) :
-            break
+            let router = DetailRouter()
+            let context = DetailRouter.PresentationContext.view(cocktail)
+            router.present(on: baseViewController, context: context)
         }
     }
 }

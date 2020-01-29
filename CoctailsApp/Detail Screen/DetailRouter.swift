@@ -10,4 +10,22 @@ import UIKit
 
 class DetailRouter {
     
+    weak var baseViewController: UIViewController?
+    
+    enum PresentationContext {
+        case view(Cocktail)
+    }
+    
+    func present(on baseVS: UIViewController, context: Any?) {
+        guard let context = context as? PresentationContext else { return }
+        
+        switch context {
+        case .view(let coctail):
+            let viewController = DetailViewController()
+            let viewModel = DetailViewModel(router: self, cocktail: coctail)
+            viewController.viewModel = viewModel
+            baseVS.navigationController?.pushViewController(viewController, animated: true)
+            baseViewController = baseVS
+        }
+    }
 }

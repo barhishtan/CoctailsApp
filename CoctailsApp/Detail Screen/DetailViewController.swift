@@ -34,6 +34,7 @@ class DetailViewController: UIViewController {
     
     let recipeTextView: UITextView = {
         let textView = UITextView()
+        textView.font = .systemFont(ofSize: 20, weight: .semibold)
         textView.isEditable = false
         textView.isScrollEnabled = true
         textView.scrollRangeToVisible(NSRange(location: 0, length: 0))
@@ -50,12 +51,7 @@ class DetailViewController: UIViewController {
         setupNavigationBar()
         setupView()
         setupBindings()
-        
-        // test data...
-//        detailImage.image = UIImage.add
-//        recipeTextView.text = "start kfjjfs sdfjlksflkjs sdfskfjsl sklfjsfjkjsb s;fklsfj dsklfjslkf end"
-//        recipeTextView.font = .boldSystemFont(ofSize: 75)
-        
+    
     }
     
     override func viewWillLayoutSubviews() {
