@@ -20,24 +20,19 @@ class DetailViewModel {
     let isFavourite = PublishRelay<Bool>()
     
     // MARK: - Private Properties
-    let bag = DisposeBag()
-    let cocktail: Cocktail
+    private let cocktail: Cocktail
     
     // MARK: - Initializers
     init(router: DetailRouter, cocktail: Cocktail) {
         self.router = router
         self.cocktail = cocktail
         
-        setupBindings()
-    }
-    
-    // MARK: - Private Methods
-    private func setupBindings() {
         title.accept(cocktail.name)
         imageStringURL.accept(cocktail.imageURL)
         recipeText.accept(createRecipeText())
     }
     
+    // MARK: - Private Methods
     private func createRecipeText() -> String? {
         var text = "Instructions: \n"
         text.append(cocktail.instructions ?? "")

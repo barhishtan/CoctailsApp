@@ -40,11 +40,16 @@ class DetailViewController: UIViewController {
         return textView
     }()
     
+    // MARK: - Properties
+    var viewModel: DetailViewModel?
+    private let bag = DisposeBag()
+    
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigationBar()
         setupView()
+        setupBindings()
         
         // test data...
 //        detailImage.image = UIImage.add
@@ -89,4 +94,26 @@ class DetailViewController: UIViewController {
         navigationItem.setRightBarButtonItems([barSwitch, barLabel], animated: true)
         
       }
+    
+    private func setupBindings() {
+        guard let viewModel = viewModel else { return }
+        
+        favoriteSwitch.rx.isOn
+            .bind(to: viewModel.isFavourite)
+            .disposed(by: bag)
+        
+        viewModel.recipeText
+            .bind(to: recipeTextView.rx.text)
+            .disposed(by: bag)
+        
+        viewModel.title
+            .bind(to: navigationItem.rx.title)
+            .disposed(by: bag)
+        
+        viewModel.imageStringURL
+            .subscribe(onNext: { [weak self] stringURL in
+                self?.detailImage.fetchImage(fromURL: stringURL)
+            })
+            .disposed(by: bag)
+    }
 }
