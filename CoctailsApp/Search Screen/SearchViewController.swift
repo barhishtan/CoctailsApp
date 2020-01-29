@@ -16,7 +16,7 @@ class SearchViewController: UIViewController {
     // MARK: - UI Properties
     private let searchController: UISearchController = {
         let searchController = UISearchController(searchResultsController: nil)
-        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.obscuresBackgroundDuringPresentation = true
         searchController.hidesNavigationBarDuringPresentation = false
         searchController.searchBar.scopeButtonTitles = ["Name", "Ingredient"]
         searchController.searchBar.returnKeyType = .done

@@ -15,13 +15,13 @@ class DetailViewModel {
     // MARK: - Public Properties
     let router: DetailRouter
     
-    let title = BehaviorRelay<String?>(value: "")
-    let imageStringURL = BehaviorRelay<String?>(value: "")
-    let recipeText = BehaviorRelay<String?>(value: "")
+    let title = PublishRelay<String?>()
+    let imageStringURL = PublishRelay<String?>()
+    let recipeText = PublishRelay<String?>()
     let isFavourite = PublishRelay<Bool>()
     
     // MARK: - Private Properties
-    private let cocktailId = PublishSubject<CocktailId>()
+    private let cocktailId = BehaviorRelay<CocktailId>(value: "")
     
     private let dataFetcher = NetworkDataFetcher()
     private let decoder = RxJSONDecoder()
@@ -32,31 +32,29 @@ class DetailViewModel {
     // MARK: - Initializers
     init(router: DetailRouter, cocktailId: CocktailId) {
         self.router = router
-        self.cocktailId.onNext(cocktailId)
-//        let text = DetailViewModel.createRecipeText(cocktail: cocktail)
-//
-//        title = BehaviorRelay<String?>(value: cocktail.name)
-//        imageStringURL = BehaviorRelay<String?>(value: cocktail.imageURL)
-//        recipeText = BehaviorRelay<String?>(value: text)
+        self.cocktailId.accept(cocktailId)
+
         setupBindings()
     }
     
     // MARK: - Private Methods
     private func setupBindings() {
+        print(cocktailId)
         cocktailId
             .unwrap()
-            .flatMapLatest { [weak self] id -> Observable<Cocktail> in
+            .flatMapLatest { [weak self] id -> Observable<CocktailList> in
                 guard let self = self else {
-                    return Observable<Cocktail>.just(Cocktail()) }
+                    return Observable<CocktailList>.just(CocktailList()) }
                 let data = self.dataFetcher.fetchData(searchType: .detailByID, query: id)
-                
+                print("11")
                 return self.decoder
-                    .decodeJSONData(type: Cocktail.self, data: data)
-                    .catchErrorJustReturn(Cocktail())
+                    .decodeJSONData(type: CocktailList.self, data: data)
+                    .catchErrorJustReturn(CocktailList())
             }
-            .asDriver(onErrorJustReturn: Cocktail())
-            .drive(onNext: { [weak self] cocktail in
+            .asDriver(onErrorJustReturn: CocktailList())
+            .drive(onNext: { [weak self] cocktailList in
                 guard let self = self else { return }
+                guard let cocktail = cocktailList.cocktails.first else { return }
                 self.title.accept(cocktail.name)
                 self.imageStringURL.accept(cocktail.imageURL)
                 let text = self.createRecipeText(cocktail: cocktail)
