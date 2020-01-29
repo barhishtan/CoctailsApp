@@ -69,7 +69,8 @@ class SearchViewModel {
             .subscribe(onNext: { [weak self] index in
                 guard let self = self else { return }
                 let cocktail = self.searchResult.cocktails[index]
-                self.router.enqueueRoute(with: SearchRouter.RouteType.details(cocktail))
+                let cocktailId = cocktail.id
+                self.router.enqueueRoute(with: SearchRouter.RouteType.details(cocktailId))
             })
             .disposed(by: bag)
     }

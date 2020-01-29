@@ -13,16 +13,16 @@ class DetailRouter {
     weak var baseViewController: UIViewController?
     
     enum PresentationContext {
-        case view(Cocktail)
+        case view(CocktailId)
     }
     
     func present(on baseVS: UIViewController, context: Any?) {
         guard let context = context as? PresentationContext else { return }
         
         switch context {
-        case .view(let coctail):
+        case .view(let coctailId):
             let viewController = DetailViewController()
-            let viewModel = DetailViewModel(router: self, cocktail: coctail)
+            let viewModel = DetailViewModel(router: self, cocktailId: coctailId)
             viewController.viewModel = viewModel
             baseVS.navigationController?.pushViewController(viewController, animated: true)
             baseViewController = baseVS

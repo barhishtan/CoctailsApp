@@ -13,7 +13,7 @@ class SearchRouter {
     weak var baseViewController: UIViewController?
     
     enum RouteType {
-        case details(Cocktail)
+        case details(CocktailId)
     }
     
     func enqueueRoute(with context: Any?) {
@@ -21,9 +21,9 @@ class SearchRouter {
         guard let baseViewController = baseViewController else { return }
         
         switch routeType {
-        case .details(let cocktail) :
+        case .details(let cocktailId) :
             let router = DetailRouter()
-            let context = DetailRouter.PresentationContext.view(cocktail)
+            let context = DetailRouter.PresentationContext.view(cocktailId)
             router.present(on: baseViewController, context: context)
         }
     }

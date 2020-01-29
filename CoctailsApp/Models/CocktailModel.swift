@@ -8,6 +8,8 @@
 
 import Foundation
 
+typealias CocktailId = String?
+
 struct Cocktail: Decodable {
     // MARK: - Public Properties
     var id: String?

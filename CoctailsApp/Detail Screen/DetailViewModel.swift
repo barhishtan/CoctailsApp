@@ -9,28 +9,63 @@
 import Foundation
 import RxSwift
 import RxCocoa
+import RxSwiftExt
 
 class DetailViewModel {
     // MARK: - Public Properties
     let router: DetailRouter
     
-    let title: BehaviorRelay<String?>
-    let imageStringURL: BehaviorRelay<String?>
-    let recipeText: BehaviorRelay<String?>
-    let isFavourite = PublishSubject<Bool>()
+    let title = BehaviorRelay<String?>(value: "")
+    let imageStringURL = BehaviorRelay<String?>(value: "")
+    let recipeText = BehaviorRelay<String?>(value: "")
+    let isFavourite = PublishRelay<Bool>()
+    
+    // MARK: - Private Properties
+    private let cocktailId = PublishSubject<CocktailId>()
+    
+    private let dataFetcher = NetworkDataFetcher()
+    private let decoder = RxJSONDecoder()
+    private let bag = DisposeBag()
+    
+    
     
     // MARK: - Initializers
-    init(router: DetailRouter, cocktail: Cocktail) {
+    init(router: DetailRouter, cocktailId: CocktailId) {
         self.router = router
-        let text = DetailViewModel.createRecipeText(cocktail: cocktail)
-        
-        title = BehaviorRelay<String?>(value: cocktail.name)
-        imageStringURL = BehaviorRelay<String?>(value: cocktail.imageURL)
-        recipeText = BehaviorRelay<String?>(value: text)
+        self.cocktailId.onNext(cocktailId)
+//        let text = DetailViewModel.createRecipeText(cocktail: cocktail)
+//
+//        title = BehaviorRelay<String?>(value: cocktail.name)
+//        imageStringURL = BehaviorRelay<String?>(value: cocktail.imageURL)
+//        recipeText = BehaviorRelay<String?>(value: text)
+        setupBindings()
     }
     
     // MARK: - Private Methods
-    private static func createRecipeText(cocktail: Cocktail) -> String? {
+    private func setupBindings() {
+        cocktailId
+            .unwrap()
+            .flatMapLatest { [weak self] id -> Observable<Cocktail> in
+                guard let self = self else {
+                    return Observable<Cocktail>.just(Cocktail()) }
+                let data = self.dataFetcher.fetchData(searchType: .detailByID, query: id)
+                
+                return self.decoder
+                    .decodeJSONData(type: Cocktail.self, data: data)
+                    .catchErrorJustReturn(Cocktail())
+            }
+            .asDriver(onErrorJustReturn: Cocktail())
+            .drive(onNext: { [weak self] cocktail in
+                guard let self = self else { return }
+                self.title.accept(cocktail.name)
+                self.imageStringURL.accept(cocktail.imageURL)
+                let text = self.createRecipeText(cocktail: cocktail)
+                self.recipeText.accept(text)
+            })
+            .disposed(by: bag)
+    }
+    
+    private func createRecipeText(cocktail: Cocktail) -> String? {
         var text = "Instructions: \n\n"
         text.append("\(cocktail.instructions ?? "") \n\n")
         text.append("Ingredients: \n\n")
