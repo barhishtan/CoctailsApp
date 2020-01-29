@@ -6,4 +6,8 @@
 //  Copyright © 2020 Artur Sokolov. All rights reserved.
 //
 
-import Foundation
+import UIKit
+
+class DetailRouter {
+    
+}

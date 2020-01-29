@@ -22,7 +22,7 @@ class DetailViewController: UIViewController {
     
     let favoriteLabel: UILabel = {
         let label = UILabel()
-        label.text = "Is favorite"
+        label.text = "Is favorite 👍🏻"
         label.font = .systemFont(ofSize: 20, weight: .semibold)
         return label
     }()
@@ -47,9 +47,9 @@ class DetailViewController: UIViewController {
         setupView()
         
         // test data...
-        detailImage.image = UIImage.add
-        recipeTextView.text = "start kfjjfs sdfjlksflkjs sdfskfjsl sklfjsfjkjsb s;fklsfj dsklfjslkf end"
-        recipeTextView.font = .boldSystemFont(ofSize: 75)
+//        detailImage.image = UIImage.add
+//        recipeTextView.text = "start kfjjfs sdfjlksflkjs sdfskfjsl sklfjsfjkjsb s;fklsfj dsklfjslkf end"
+//        recipeTextView.font = .boldSystemFont(ofSize: 75)
         
     }
     
