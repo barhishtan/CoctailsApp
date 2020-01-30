@@ -11,7 +11,7 @@ import SnapKit
 import RxSwift
 import RxCocoa
 
-class SearchCellView: UITableViewCell {
+final class SearchCellView: UITableViewCell {
     // MARK: - UI Properties
     private let cocktailNameLabel: UILabel = {
         let label = UILabel()

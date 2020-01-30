@@ -12,7 +12,7 @@ import RxSwift
 final class RxJSONDecoder {
     func decodeJSONData<T: Decodable>(type: T.Type, data: Observable<Data>) -> Observable<T> {
         return data.map { data in
-            return try JSONDecoder().decode(T.self, from: data)
+            return try JSONDecoder().decode(type.self, from: data)
         }
     }
 }

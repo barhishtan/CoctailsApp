@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9A0635E723E30C8900BF2C8D /* PersistenceStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0635E623E30C8900BF2C8D /* PersistenceStorage.swift */; };
 		9A18E4EA23E0B1E900D5B31C /* CategoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A18E4E923E0B1E900D5B31C /* CategoriesViewController.swift */; };
 		9A2120C223E0DDE800AC39B7 /* UIImageView + fetchImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2120C123E0DDE800AC39B7 /* UIImageView + fetchImage.swift */; };
 		9A29F54523E0A6D000D52FCE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A29F54423E0A6D000D52FCE /* AppDelegate.swift */; };
@@ -32,6 +33,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9A0635E623E30C8900BF2C8D /* PersistenceStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceStorage.swift; sourceTree = "<group>"; };
 		9A18E4E923E0B1E900D5B31C /* CategoriesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesViewController.swift; sourceTree = "<group>"; };
 		9A2120C123E0DDE800AC39B7 /* UIImageView + fetchImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView + fetchImage.swift"; sourceTree = "<group>"; };
 		9A29F54123E0A6D000D52FCE /* CoctailsApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoctailsApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -97,7 +99,7 @@
 			isa = PBXGroup;
 			children = (
 				9A29F55A23E0A86500D52FCE /* Delegates */,
-				9A29F56123E0A8E900D52FCE /* Network Manager */,
+				9A29F56123E0A8E900D52FCE /* Services */,
 				9A29F56423E0A91500D52FCE /* Models */,
 				9A29F56923E0A97900D52FCE /* Search Screen */,
 				9A50BDBC23E19980004E55C0 /* Detail Screen */,
@@ -119,15 +121,16 @@
 			path = Delegates;
 			sourceTree = "<group>";
 		};
-		9A29F56123E0A8E900D52FCE /* Network Manager */ = {
+		9A29F56123E0A8E900D52FCE /* Services */ = {
 			isa = PBXGroup;
 			children = (
 				9A29F55B23E0A8AF00D52FCE /* NetworkRouter.swift */,
 				9A29F55D23E0A8C200D52FCE /* NetworkDataFetcher.swift */,
 				9A29F55F23E0A8D500D52FCE /* RxJSONDecoder.swift */,
 				9A2120C123E0DDE800AC39B7 /* UIImageView + fetchImage.swift */,
+				9A0635E623E30C8900BF2C8D /* PersistenceStorage.swift */,
 			);
-			path = "Network Manager";
+			path = Services;
 			sourceTree = "<group>";
 		};
 		9A29F56423E0A91500D52FCE /* Models */ = {
@@ -255,6 +258,7 @@
 				9A29F54923E0A6D000D52FCE /* SearchViewController.swift in Sources */,
 				9A29F55C23E0A8AF00D52FCE /* NetworkRouter.swift in Sources */,
 				9A29F54523E0A6D000D52FCE /* AppDelegate.swift in Sources */,
+				9A0635E723E30C8900BF2C8D /* PersistenceStorage.swift in Sources */,
 				9A29F56823E0A96F00D52FCE /* SearchRouter.swift in Sources */,
 				9A29F56623E0A95D00D52FCE /* SearchViewModel.swift in Sources */,
 				9A29F56B23E0A99500D52FCE /* SearchCellView.swift in Sources */,

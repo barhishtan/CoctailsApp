@@ -7,7 +7,7 @@
 //
 import Foundation
 
-class SearchCellViewModel {
+final class SearchCellViewModel {
     var cocktailName: String? { return cocktail.name }
     var cocktailImageURL: String? { return cocktail.imageURL }
     
