@@ -11,7 +11,8 @@ import RealmSwift
 
 typealias CocktailId = String?
 
-final class Cocktail: Object, Decodable {
+final class Cocktail: Object, Decodable{
+
     // MARK: - Public Properties
     @objc dynamic var id: String?
     @objc dynamic var name: String?
@@ -74,6 +75,41 @@ final class Cocktail: Object, Decodable {
         case measureEigth = "strMeasure8"
         case measureNine = "strMeasure9"
         case measureTen = "strMeasure10"
+    }
+}
+
+extension Cocktail: NSCopying {
+    func copy(with zone: NSZone? = nil) -> Any {
+        let copy = Cocktail()
+        
+        copy.id = id
+        copy.name = name
+        copy.instructions = instructions
+        copy.imageURL = imageURL
+        
+        copy.ingredientOne = ingredientOne
+        copy.ingredientTwo = ingredientTwo
+        copy.ingredientThree = ingredientThree
+        copy.ingredientFour = ingredientFour
+        copy.ingredientFive = ingredientFive
+        copy.ingredientSix = ingredientSix
+        copy.ingredientSeven = ingredientSeven
+        copy.ingredientEight = ingredientEight
+        copy.ingredientNine = ingredientNine
+        copy.ingredientTen = ingredientTen
+        
+        copy.measureOne = measureOne
+        copy.measureTwo = measureTwo
+        copy.measureThree = measureThree
+        copy.measureFour = measureFour
+        copy.measureFive = measureFive
+        copy.measureSix = measureSix
+        copy.measureSeven = measureSeven
+        copy.measureEigth = measureEigth
+        copy.measureNine = measureNine
+        copy.measureTen = measureTen
+        
+        return copy
     }
 }
 

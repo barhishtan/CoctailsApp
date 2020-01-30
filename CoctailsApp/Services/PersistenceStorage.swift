@@ -32,6 +32,4 @@ final class PersistenceStorage {
     func containsObject<T: Object>(ofType type: T.Type, key: String) -> Bool {
         return fetchObject(ofType: type, key: key) == nil ? false : true
     }
-    
-    
 }

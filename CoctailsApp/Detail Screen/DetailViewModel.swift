@@ -28,7 +28,7 @@ final class DetailViewModel {
     private let decoder = RxJSONDecoder()
     private let bag = DisposeBag()
     
-    private let realm = try! Realm()
+    private let storage = PersistenceStorage()
     
     // MARK: - Initializers
     init(router: DetailRouter, cocktailId: CocktailId) {
@@ -40,10 +40,11 @@ final class DetailViewModel {
     }
     
     // MARK: - Private Methods
-    private func isFavouriteCheck() {
-        let key = cocktailId.value
-        let object = realm.object(ofType: Cocktail.self, forPrimaryKey: key)
-        if let _ = object { isFavourite.accept(true) }
+    private func isFavouriteCheck() {        
+        guard let key = cocktailId.value else { return }
+        if storage.containsObject(ofType: Cocktail.self, key: key) {
+            isFavourite.accept(true)
+        }
     }
     
     private func setupBindings() {
@@ -73,14 +74,11 @@ final class DetailViewModel {
         isFavourite.subscribe(onNext: { [weak self] isFavourite in
             guard let self = self else { return }
             if isFavourite {
-                try! self.realm.write {
-                    self.realm.add(self.cocktail, update: .modified)
-                }
+                let cocktail = self.cocktail.copy() as! Cocktail
+                self.storage.save(cocktail)
             } else {
-                try! self.realm.write {
-                    guard let coctail = self.realm.object(ofType: Cocktail.self, forPrimaryKey: self.cocktailId.value) else { return }
-                    self.realm.delete(coctail)
-                }
+                guard let cocktail = self.storage.fetchObject(ofType: Cocktail.self, key: self.cocktailId.value ?? "") else { return }
+                self.storage.delete(cocktail)
             }
             })
             .disposed(by: bag)
