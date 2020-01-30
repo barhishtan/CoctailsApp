@@ -80,7 +80,7 @@ import SnapKit
     }
     
     private func setupNavigationBar() {
-        navigationItem.title = "Coctail info"
+//        navigationItem.title = "Coctail info"
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationController?.navigationBar.isTranslucent = true
         navigationController?.navigationBar.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0.8986515411)

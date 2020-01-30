@@ -10,6 +10,7 @@ import Foundation
 import RxSwift
 import RxCocoa
 import RxSwiftExt
+import RealmSwift
 
 final class DetailViewModel {
     // MARK: - Public Properties
@@ -21,23 +22,30 @@ final class DetailViewModel {
     let isFavourite = BehaviorRelay<Bool>(value: false)
     
     // MARK: - Private Properties
-    private let cocktailId = BehaviorRelay<CocktailId>(value: "")
-    
+    private let cocktailId = BehaviorRelay<CocktailId>(value: "0")
+    private var cocktail = Cocktail()
     private let dataFetcher = NetworkDataFetcher()
     private let decoder = RxJSONDecoder()
     private let bag = DisposeBag()
     
-    
+    private let realm = try! Realm()
     
     // MARK: - Initializers
     init(router: DetailRouter, cocktailId: CocktailId) {
         self.router = router
         self.cocktailId.accept(cocktailId)
-        //проверяю есть ли обЪет с таким ID в Realm. Если есть, то Isfavourite = true
+        
+        isFavouriteCheck()
         setupBindings()
     }
     
     // MARK: - Private Methods
+    private func isFavouriteCheck() {
+        let key = cocktailId.value
+        let object = realm.object(ofType: Cocktail.self, forPrimaryKey: key)
+        if let _ = object { isFavourite.accept(true) }
+    }
+    
     private func setupBindings() {
         cocktailId
             .unwrap()
@@ -54,6 +62,7 @@ final class DetailViewModel {
             .drive(onNext: { [weak self] cocktailList in
                 guard let self = self else { return }
                 guard let cocktail = cocktailList.cocktails.first else { return }
+                self.cocktail = cocktail
                 self.title.accept(cocktail.name)
                 self.imageStringURL.accept(cocktail.imageURL)
                 let text = self.createRecipeText(cocktail: cocktail)
@@ -61,14 +70,20 @@ final class DetailViewModel {
             })
             .disposed(by: bag)
         
-//        isFavourite.subscribe(onNext: { [weak self] isFavourite in
-//            if isFavourite {
-//                realm.write
-//            } else {
-//                realm.delete
-//            }
-//            
-//        })
+        isFavourite.subscribe(onNext: { [weak self] isFavourite in
+            guard let self = self else { return }
+            if isFavourite {
+                try! self.realm.write {
+                    self.realm.add(self.cocktail, update: .modified)
+                }
+            } else {
+                try! self.realm.write {
+                    guard let coctail = self.realm.object(ofType: Cocktail.self, forPrimaryKey: self.cocktailId.value) else { return }
+                    self.realm.delete(coctail)
+                }
+            }
+            })
+            .disposed(by: bag)
     }
     
     private func createRecipeText(cocktail: Cocktail) -> String? {
