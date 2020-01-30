@@ -18,7 +18,7 @@ class DetailViewModel {
     let title = PublishRelay<String?>()
     let imageStringURL = PublishRelay<String?>()
     let recipeText = PublishRelay<String?>()
-    let isFavourite = PublishRelay<Bool>()
+    let isFavourite = BehaviorRelay<Bool>(value: false)
     
     // MARK: - Private Properties
     private let cocktailId = BehaviorRelay<CocktailId>(value: "")
@@ -33,13 +33,12 @@ class DetailViewModel {
     init(router: DetailRouter, cocktailId: CocktailId) {
         self.router = router
         self.cocktailId.accept(cocktailId)
-
+        //проверяю есть ли обЪет с таким ID в Realm. Если есть, то Isfavourite = true
         setupBindings()
     }
     
     // MARK: - Private Methods
     private func setupBindings() {
-        print(cocktailId)
         cocktailId
             .unwrap()
             .flatMapLatest { [weak self] id -> Observable<CocktailList> in
@@ -61,6 +60,15 @@ class DetailViewModel {
                 self.recipeText.accept(text)
             })
             .disposed(by: bag)
+        
+//        isFavourite.subscribe(onNext: { [weak self] isFavourite in
+//            if isFavourite {
+//                realm.write
+//            } else {
+//                realm.delete
+//            }
+//            
+//        })
     }
     
     private func createRecipeText(cocktail: Cocktail) -> String? {

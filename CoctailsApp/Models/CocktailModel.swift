@@ -7,40 +7,47 @@
 //
 
 import Foundation
+import RealmSwift
+import Realm
 
 typealias CocktailId = String?
 
-struct Cocktail: Decodable {
+class Cocktail: Object, Decodable {
     // MARK: - Public Properties
-    var id: String?
-    var name: String?
-    var instructions: String?
-    var imageURL: String?
+    @objc dynamic var id: String?
+    @objc dynamic var name: String?
+    @objc dynamic var instructions: String?
+    @objc dynamic var imageURL: String?
     
-    var ingredientOne: String?
-    var ingredientTwo: String?
-    var ingredientThree: String?
-    var ingredientFour: String?
-    var ingredientFive: String?
-    var ingredientSix: String?
-    var ingredientSeven: String?
-    var ingredientEight: String?
-    var ingredientNine: String?
-    var ingredientTen: String?
+    @objc dynamic var ingredientOne: String?
+    @objc dynamic var ingredientTwo: String?
+    @objc dynamic var ingredientThree: String?
+    @objc dynamic var ingredientFour: String?
+    @objc dynamic var ingredientFive: String?
+    @objc dynamic var ingredientSix: String?
+    @objc dynamic var ingredientSeven: String?
+    @objc dynamic var ingredientEight: String?
+    @objc dynamic var ingredientNine: String?
+    @objc dynamic var ingredientTen: String?
     
-    var measureOne: String?
-    var measureTwo: String?
-    var measureThree: String?
-    var measureFour: String?
-    var measureFive: String?
-    var measureSix: String?
-    var measureSeven: String?
-    var measureEigth: String?
-    var measureNine: String?
-    var measureTen: String?
+    @objc dynamic var measureOne: String?
+    @objc dynamic var measureTwo: String?
+    @objc dynamic var measureThree: String?
+    @objc dynamic var measureFour: String?
+    @objc dynamic var measureFive: String?
+    @objc dynamic var measureSix: String?
+    @objc dynamic var measureSeven: String?
+    @objc dynamic var measureEigth: String?
+    @objc dynamic var measureNine: String?
+    @objc dynamic var measureTen: String?
+    
+    // MARK: - Private Methods
+    override static func primaryKey() -> String? {
+        return "id"
+    }
     
     // MARK: - CodingKeys
-    enum CodingKeys: String, CodingKey {
+    private enum CodingKeys: String, CodingKey {
         
         case id = "idDrink"
         case name = "strDrink"
@@ -72,10 +79,17 @@ struct Cocktail: Decodable {
 }
 
 // MARK: - CocktailList
-struct CocktailList: Decodable {
-    var cocktails: [Cocktail] = []
+class CocktailList: Object, Decodable {
+    var cocktails = List<Cocktail>()
     
-    enum CodingKeys: String, CodingKey {
+    private enum CodingKeys: String, CodingKey {
         case cocktails = "drinks"
+    }
+    
+    convenience init(decoder: Decoder) throws {
+        self.init()
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let cocktails = try container.decodeIfPresent([Cocktail].self, forKey: .cocktails) ?? [Cocktail()]
+        self.cocktails.append(objectsIn: cocktails)
     }
 }

@@ -70,7 +70,7 @@ class DetailViewController: UIViewController {
     private func setupConstraints() {
         detailImage.snp.makeConstraints { make in
             make.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
-            make.height.equalToSuperview().multipliedBy(0.3)
+            make.height.equalToSuperview().multipliedBy(0.4)
         }
         
         recipeTextView.snp.makeConstraints { make in
@@ -93,6 +93,8 @@ class DetailViewController: UIViewController {
     
     private func setupBindings() {
         guard let viewModel = viewModel else { return }
+        
+        favoriteSwitch.isOn = viewModel.isFavourite.value
         
         favoriteSwitch.rx.isOn
             .bind(to: viewModel.isFavourite)
