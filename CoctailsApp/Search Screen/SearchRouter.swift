@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SearchRouter {
+final class SearchRouter {
     
     weak var baseViewController: UIViewController?
     

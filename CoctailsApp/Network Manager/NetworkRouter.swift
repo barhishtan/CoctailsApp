@@ -8,7 +8,7 @@
 
 import Foundation
 
-class NetworkRouter {
+final class NetworkRouter {
     // MARK: - Private Properties
     static private let baseURL: URLComponents = {
         var baseURL = URLComponents()

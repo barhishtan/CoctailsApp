@@ -11,7 +11,7 @@ import RxSwift
 import RxCocoa
 import SnapKit
 
-class DetailViewController: UIViewController {
+ final class DetailViewController: UIViewController {
     // MARK: - UI Properties
     let detailImage: UIImageView = {
         let imageView = UIImageView()

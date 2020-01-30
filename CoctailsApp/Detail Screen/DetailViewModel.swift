@@ -11,7 +11,7 @@ import RxSwift
 import RxCocoa
 import RxSwiftExt
 
-class DetailViewModel {
+final class DetailViewModel {
     // MARK: - Public Properties
     let router: DetailRouter
     

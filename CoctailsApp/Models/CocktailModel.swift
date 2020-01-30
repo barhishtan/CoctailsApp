@@ -8,11 +8,10 @@
 
 import Foundation
 import RealmSwift
-import Realm
 
 typealias CocktailId = String?
 
-class Cocktail: Object, Decodable {
+final class Cocktail: Object, Decodable {
     // MARK: - Public Properties
     @objc dynamic var id: String?
     @objc dynamic var name: String?
@@ -79,17 +78,10 @@ class Cocktail: Object, Decodable {
 }
 
 // MARK: - CocktailList
-class CocktailList: Object, Decodable {
+final class CocktailList: Object, Decodable {
     var cocktails = List<Cocktail>()
     
     private enum CodingKeys: String, CodingKey {
         case cocktails = "drinks"
-    }
-    
-    convenience init(decoder: Decoder) throws {
-        self.init()
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        let cocktails = try container.decodeIfPresent([Cocktail].self, forKey: .cocktails) ?? [Cocktail()]
-        self.cocktails.append(objectsIn: cocktails)
     }
 }

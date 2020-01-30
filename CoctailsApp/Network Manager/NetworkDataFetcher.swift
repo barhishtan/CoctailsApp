@@ -9,7 +9,7 @@
 import Foundation
 import RxSwift
 
-class NetworkDataFetcher {
+final class NetworkDataFetcher {
     private let networkRouter = NetworkRouter()
     
     func fetchData(searchType: NetworkRouter.SearchType, query: String? = nil) -> Observable<Data> {

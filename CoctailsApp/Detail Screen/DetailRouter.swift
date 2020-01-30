@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DetailRouter {
+final class DetailRouter {
     
     weak var baseViewController: UIViewController?
     

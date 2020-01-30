@@ -11,7 +11,7 @@ import RxSwift
 import RxSwiftExt
 import RxCocoa
 
-class SearchViewModel {
+final class SearchViewModel {
     // MARK: - Public Properties
     let router: SearchRouter
     

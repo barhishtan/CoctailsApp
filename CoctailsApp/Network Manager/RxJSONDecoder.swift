@@ -9,7 +9,7 @@
 import Foundation
 import RxSwift
 
-class RxJSONDecoder {
+final class RxJSONDecoder {
     func decodeJSONData<T: Decodable>(type: T.Type, data: Observable<Data>) -> Observable<T> {
         return data.map { data in
             return try JSONDecoder().decode(T.self, from: data)
