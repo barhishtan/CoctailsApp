@@ -8,7 +8,7 @@
 
 import UIKit
 
-class Coordinator {
+final class Coordinator {
     
     func presentInitialScreen(on window: UIWindow) {
         // Search
@@ -36,8 +36,7 @@ class Coordinator {
         
         let favouritesNC = UINavigationController(
             rootViewController: favouritesVC)
-
-
+        
         // Main
         let tabBarController = UITabBarController()
         tabBarController.viewControllers = [navigationController, favouritesNC]

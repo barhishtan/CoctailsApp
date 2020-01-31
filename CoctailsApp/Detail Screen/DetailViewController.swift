@@ -42,7 +42,7 @@ import SnapKit
     }()
     
     // MARK: - Properties
-    var viewModel: DetailViewModel?
+    var viewModel: DetailViewModelType!
     private let bag = DisposeBag()
     
     // MARK: - Lifecycle
@@ -90,7 +90,6 @@ import SnapKit
       }
     
     private func setupBindings() {
-        guard let viewModel = viewModel else { return }
         
         favoriteSwitch.isOn = viewModel.isFavourite.value
         

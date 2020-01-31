@@ -11,7 +11,15 @@ import RxSwift
 import RxSwiftExt
 import RxCocoa
 
-final class SearchViewModel {
+protocol SearchViewModelType {
+    var searchText: PublishSubject<String?> { get }
+    var searchType: BehaviorRelay<NetworkRouter.SearchType> { get }
+    var tableViewItems: BehaviorRelay<[SearchCellViewModel]> { get }
+    var selectedIndex: PublishSubject<Int> { get }
+    var showActivityIndicator: BehaviorRelay<Bool> { get }
+}
+
+final class SearchViewModel: SearchViewModelType {
     // MARK: - Public Properties
     let searchText = PublishSubject<String?>()
     let searchType = BehaviorRelay<NetworkRouter.SearchType>(value: .byName)

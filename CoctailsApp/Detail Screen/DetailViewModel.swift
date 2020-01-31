@@ -11,7 +11,14 @@ import RxSwift
 import RxCocoa
 import RxSwiftExt
 
-final class DetailViewModel {
+protocol DetailViewModelType {
+    var title: PublishRelay<String?> { get }
+    var imageStringURL: PublishRelay<String?> { get }
+    var recipeText: PublishRelay<String?> { get }
+    var isFavourite: BehaviorRelay<Bool> { get }
+}
+
+final class DetailViewModel: DetailViewModelType {
     // MARK: - Public Properties
     let title = PublishRelay<String?>()
     let imageStringURL = PublishRelay<String?>()

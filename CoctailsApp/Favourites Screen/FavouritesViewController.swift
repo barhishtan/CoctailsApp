@@ -23,7 +23,7 @@ final class FavouritesViewController: UIViewController {
     }()
     // MARK: - Properties
     private let bag = DisposeBag()
-    var viewModel: FavouritesViewModel!
+    var viewModel: FavouritesViewModelType!
 
     // MARK: - Lifecycle
     override func viewDidLoad() {

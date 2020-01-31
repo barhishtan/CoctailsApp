@@ -38,7 +38,7 @@ final class SearchViewController: UIViewController {
     private let bag = DisposeBag()
     
     // MARK: - Public Properties
-    var viewModel: SearchViewModel!
+    var viewModel: SearchViewModelType!
     
     // MARK: - Lifecycle
     override func viewDidLoad() {

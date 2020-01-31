@@ -6,7 +6,12 @@
 //  Copyright © 2020 Artur Sokolov. All rights reserved.
 //
 
-final class SearchCellViewModel {
+protocol SearchCellViewModelType {
+    var cocktailName: String? { get }
+    var cocktailImageURL: String? { get }
+}
+
+final class SearchCellViewModel: SearchCellViewModelType {
     var cocktailName: String? { return cocktail.name }
     var cocktailImageURL: String? { return cocktail.imageURL }
     

@@ -10,7 +10,12 @@ import RxSwift
 import RxCocoa
 import RxRealm
 
-final class FavouritesViewModel {
+protocol FavouritesViewModelType {
+    var tableViewItems: BehaviorRelay<[SearchCellViewModel]> { get }
+    var selectedIndex: PublishRelay<Int> { get }
+}
+
+final class FavouritesViewModel: FavouritesViewModelType {
     
     // MARK: - Private Properties
     private let router: FavouritesRouter

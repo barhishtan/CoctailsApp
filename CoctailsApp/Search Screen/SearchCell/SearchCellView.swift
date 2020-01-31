@@ -28,7 +28,7 @@ final class SearchCellView: UITableViewCell {
     }()
     
     // MARK: - Public Properties
-    let viewModel = PublishRelay<SearchCellViewModel>()
+    let viewModel = PublishRelay<SearchCellViewModelType>()
     
     // MARK: - Private Properties
     private let bag = DisposeBag()
