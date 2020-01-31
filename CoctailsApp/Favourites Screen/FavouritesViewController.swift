@@ -21,6 +21,7 @@ final class FavouritesViewController: UIViewController {
         tableView.rowHeight = 100
         return tableView
     }()
+    
     // MARK: - Properties
     private let bag = DisposeBag()
     var viewModel: FavouritesViewModelType!
@@ -60,11 +61,11 @@ final class FavouritesViewController: UIViewController {
             .disposed(by: bag)
         
         viewModel.tableViewItems
-        .bind(to: tableView.rx.items(cellIdentifier: "cell",
+            .bind(to: tableView.rx.items(cellIdentifier: "cell",
                                      cellType: SearchCellView.self))
-        { (row: Int, element: SearchCellViewModel, cell: SearchCellView) in
-            cell.viewModel.accept(element)
-        }
-        .disposed(by: bag)
+            { (row: Int, element: SearchCellViewModel, cell: SearchCellView) in
+                cell.viewModel.accept(element)
+            }
+            .disposed(by: bag)
     }
 }

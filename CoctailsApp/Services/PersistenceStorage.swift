@@ -33,7 +33,7 @@ final class PersistenceStorage {
         return fetchObject(ofType: type, key: key) == nil ? false : true
     }
     
-    func objects<T: Object>(ofType type: T.Type) -> Results<T> {
+    func fetchObjects<T: Object>(ofType type: T.Type) -> Results<T> {
         return realm.objects(type.self)
     }
 }

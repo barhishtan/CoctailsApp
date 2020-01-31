@@ -33,19 +33,22 @@ final class FavouritesViewModel: FavouritesViewModelType {
         
         setupBindings()
     }
+    
     // MARK: - Private Methods
     private func setupBindings() {
-        let results = storage.objects(ofType: Cocktail.self)
-          Observable.collection(from: results)
-              .map { [weak self] result -> [SearchCellViewModel] in
-                  guard let self = self else { return [SearchCellViewModel]() }
-                  self.cocktails = result.toArray()
-                  return self.cocktails.map { SearchCellViewModel($0) }
-              }
-              .subscribe(onNext: { [weak self] array in
-                  self?.tableViewItems.accept(array)
-              })
-              .disposed(by: bag)
+        
+        let results = storage.fetchObjects(ofType: Cocktail.self)
+        
+        Observable.collection(from: results)
+            .map { [weak self] result -> [SearchCellViewModel] in
+                guard let self = self else { return [SearchCellViewModel]() }
+                self.cocktails = result.toArray()
+                return self.cocktails.map { SearchCellViewModel($0) }
+            }
+            .subscribe(onNext: { [weak self] array in
+                self?.tableViewItems.accept(array)
+            })
+            .disposed(by: bag)
           
           selectedIndex
           .subscribe(onNext: { [weak self] index in

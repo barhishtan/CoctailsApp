@@ -133,8 +133,8 @@
 				9A29F55B23E0A8AF00D52FCE /* NetworkRouter.swift */,
 				9A29F55D23E0A8C200D52FCE /* NetworkDataFetcher.swift */,
 				9A29F55F23E0A8D500D52FCE /* RxJSONDecoder.swift */,
-				9A2120C123E0DDE800AC39B7 /* UIImageView + fetchImage.swift */,
 				9A0635E623E30C8900BF2C8D /* PersistenceStorage.swift */,
+				9A2120C123E0DDE800AC39B7 /* UIImageView + fetchImage.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";

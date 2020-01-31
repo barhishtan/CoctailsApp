@@ -11,7 +11,7 @@ import UIKit
 final class Coordinator {
     
     func presentInitialScreen(on window: UIWindow) {
-        // Search
+        // MARK: - Search
         let router = SearchRouter()
         let viewModel = SearchViewModel(router: router)
         let viewController = SearchViewController()
@@ -24,7 +24,7 @@ final class Coordinator {
         let navigationController = UINavigationController(
             rootViewController: viewController)
         
-        // Favourites
+        // MARK: - Favourites
         let favouritesRouter = FavouritesRouter()
         let favouritesViewModel = FavouritesViewModel(router: favouritesRouter)
         let favouritesVC = FavouritesViewController()
@@ -37,7 +37,7 @@ final class Coordinator {
         let favouritesNC = UINavigationController(
             rootViewController: favouritesVC)
         
-        // Main
+        // MARK: - Main
         let tabBarController = UITabBarController()
         tabBarController.viewControllers = [navigationController, favouritesNC]
         tabBarController.selectedIndex = 0
