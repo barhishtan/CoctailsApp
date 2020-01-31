@@ -20,18 +20,17 @@ final class DetailViewModel {
     
     // MARK: - Private Properties
     private let router: DetailRouter
-    private let cocktailId = BehaviorRelay<CocktailId>(value: "")
+    private let cocktailId: BehaviorRelay<CocktailId>
     private var cocktail = Cocktail()
     private let dataFetcher = NetworkDataFetcher()
     private let decoder = RxJSONDecoder()
-    private let bag = DisposeBag()
-    
     private let storage = PersistenceStorage()
+    private let bag = DisposeBag()
     
     // MARK: - Initializers
     init(router: DetailRouter, cocktailId: CocktailId) {
         self.router = router
-        self.cocktailId.accept(cocktailId)
+        self.cocktailId = BehaviorRelay<CocktailId>(value: cocktailId)
         
         isFavouriteCheck()
         setupBindings()
@@ -72,7 +71,7 @@ final class DetailViewModel {
             guard let self = self else { return }
             if isFavourite {
                 let cocktail = self.cocktail.copy() as! Cocktail
-                self.storage.save(cocktail)
+                if cocktail.name != nil { self.storage.save(cocktail) }
             } else {
                 guard let cocktail = self.storage.fetchObject(ofType: Cocktail.self, key: self.cocktailId.value ?? "") else { return }
                 self.storage.delete(cocktail)
