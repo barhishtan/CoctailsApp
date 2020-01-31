@@ -13,8 +13,6 @@ import RxCocoa
 
 final class SearchViewModel {
     // MARK: - Public Properties
-    let router: SearchRouter
-    
     let searchText = PublishSubject<String?>()
     let searchType = BehaviorRelay<NetworkRouter.SearchType>(value: .byName)
     let tableViewItems = BehaviorRelay<[SearchCellViewModel]>(value: [])
@@ -22,8 +20,8 @@ final class SearchViewModel {
     let showActivityIndicator = BehaviorRelay<Bool>(value: false)
     
     // MARK: - Private Properties
+    private let router: SearchRouter
     private var searchResult = CocktailList()
-    
     private let bag = DisposeBag()
     private let dataFetcher = NetworkDataFetcher()
     private let decoder = RxJSONDecoder()

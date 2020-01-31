@@ -14,14 +14,13 @@ import RealmSwift
 
 final class DetailViewModel {
     // MARK: - Public Properties
-    let router: DetailRouter
-    
     let title = PublishRelay<String?>()
     let imageStringURL = PublishRelay<String?>()
     let recipeText = PublishRelay<String?>()
     let isFavourite = BehaviorRelay<Bool>(value: false)
     
     // MARK: - Private Properties
+    private let router: DetailRouter
     private let cocktailId = BehaviorRelay<CocktailId>(value: "0")
     private var cocktail = Cocktail()
     private let dataFetcher = NetworkDataFetcher()
@@ -50,11 +49,10 @@ final class DetailViewModel {
     private func setupBindings() {
         cocktailId
             .unwrap()
-            .flatMapLatest { [weak self] id -> Observable<CocktailList> in
+            .flatMap { [weak self] id -> Observable<CocktailList> in
                 guard let self = self else {
                     return Observable<CocktailList>.just(CocktailList()) }
                 let data = self.dataFetcher.fetchData(searchType: .detailByID, query: id)
-                print("11")
                 return self.decoder
                     .decodeJSONData(type: CocktailList.self, data: data)
                     .catchErrorJustReturn(CocktailList())

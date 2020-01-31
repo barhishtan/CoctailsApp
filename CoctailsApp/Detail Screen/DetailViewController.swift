@@ -80,7 +80,6 @@ import SnapKit
     }
     
     private func setupNavigationBar() {
-//        navigationItem.title = "Coctail info"
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationController?.navigationBar.isTranslucent = true
         navigationController?.navigationBar.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0.8986515411)
@@ -88,7 +87,6 @@ import SnapKit
         let barSwitch = UIBarButtonItem(customView: favoriteSwitch)
         let barLabel = UIBarButtonItem(customView: favoriteLabel)
         navigationItem.setRightBarButtonItems([barSwitch, barLabel], animated: true)
-        
       }
     
     private func setupBindings() {

@@ -24,20 +24,27 @@ class Coordinator {
         let navigationController = UINavigationController(
             rootViewController: viewController)
         
-        // Categories
-        let categoriesVC = CategoriesViewController()
-        categoriesVC.tabBarItem.title = "Categories"
-        categoriesVC.tabBarItem.image = UIImage(systemName: "list.bullet.indent")
-        let categoriesNC = UINavigationController(rootViewController: categoriesVC)
+        // Favourites
+        let favouritesRouter = FavouritesRouter()
+        let favouritesViewModel = FavouritesViewModel(router: favouritesRouter)
+        let favouritesVC = FavouritesViewController()
+        
+        favouritesVC.viewModel = favouritesViewModel
+        favouritesVC.tabBarItem.title = "Favourites"
+        favouritesVC.tabBarItem.image = UIImage(systemName: "star.fill")
+        favouritesRouter.baseViewController = favouritesVC
+        
+        let favouritesNC = UINavigationController(
+            rootViewController: favouritesVC)
 
 
         // Main
         let tabBarController = UITabBarController()
-        tabBarController.viewControllers = [navigationController, categoriesNC]
+        tabBarController.viewControllers = [navigationController, favouritesNC]
         tabBarController.selectedIndex = 0
         
         window.rootViewController = tabBarController
         window.makeKeyAndVisible()
-        
+
     }
 }

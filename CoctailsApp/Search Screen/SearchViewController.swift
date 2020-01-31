@@ -84,7 +84,10 @@ final class SearchViewController: UIViewController {
             .disposed(by: bag)
         
         tableView.rx.itemSelected
-            .map { $0.row }
+            .map { [weak self] indexPath in
+                self?.tableView.deselectRow(at: indexPath, animated: true)
+                return indexPath.row
+            }
             .bind(to: viewModel.selectedIndex)
             .disposed(by: bag)
         
