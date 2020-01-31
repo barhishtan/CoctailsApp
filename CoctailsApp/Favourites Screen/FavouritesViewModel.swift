@@ -8,6 +8,7 @@
 
 import RxSwift
 import RxCocoa
+import RxRealm
 
 final class FavouritesViewModel {
     
@@ -27,7 +28,6 @@ final class FavouritesViewModel {
         
         setupBindings()
     }
-    
     // MARK: - Private Methods
     private func setupBindings() {
         let results = storage.objects(ofType: Cocktail.self)
@@ -51,4 +51,5 @@ final class FavouritesViewModel {
           })
           .disposed(by: bag)
     }
+    
 }

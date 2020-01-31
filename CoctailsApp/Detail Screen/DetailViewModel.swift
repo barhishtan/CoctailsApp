@@ -10,7 +10,6 @@ import Foundation
 import RxSwift
 import RxCocoa
 import RxSwiftExt
-import RealmSwift
 
 final class DetailViewModel {
     // MARK: - Public Properties
@@ -21,7 +20,7 @@ final class DetailViewModel {
     
     // MARK: - Private Properties
     private let router: DetailRouter
-    private let cocktailId = BehaviorRelay<CocktailId>(value: "0")
+    private let cocktailId = BehaviorRelay<CocktailId>(value: "")
     private var cocktail = Cocktail()
     private let dataFetcher = NetworkDataFetcher()
     private let decoder = RxJSONDecoder()

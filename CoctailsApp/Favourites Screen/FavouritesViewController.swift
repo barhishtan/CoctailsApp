@@ -10,8 +10,6 @@ import UIKit
 import RxSwift
 import RxCocoa
 import SnapKit
-import RealmSwift
-import RxRealm
 
 final class FavouritesViewController: UIViewController {
     
