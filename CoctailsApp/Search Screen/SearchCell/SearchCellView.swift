@@ -62,7 +62,7 @@ final class SearchCellView: UITableViewCell {
         
         cocktailNameLabel.snp.makeConstraints { make in
             make.leading.equalTo(cocktailImageView.snp.trailing).offset(20)
-            make.trailing.equalToSuperview().offset(20)
+            make.trailing.equalToSuperview().inset(20)
             make.centerY.equalToSuperview()
         }
     }
